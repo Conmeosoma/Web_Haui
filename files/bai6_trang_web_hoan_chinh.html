@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bài 6 - Trang Web Truyện Hay</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, #003366, #0066cc);
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      gap: 20px;
+    }
+
+    header .logo {
+      background: #003366;
+      border: 3px solid #ffcc00;
+      color: #ffcc00;
+      font-size: 28px;
+      font-weight: bold;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    header .banner-text {
+      color: white;
+      font-size: 36px;
+      font-weight: bold;
+      font-style: italic;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    header .banner-text span {
+      color: #ff4444;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      background: #4CAF50;
+    }
+
+    ul.nav-menu {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    ul.nav-menu > li {
+      position: relative;
+    }
+
+    ul.nav-menu > li > a {
+      display: block;
+      color: #ffff00;
+      text-decoration: none;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: bold;
+      border-right: 1px solid #ffffff55;
+      transition: background 0.2s;
+    }
+
+    ul.nav-menu > li:last-child > a {
+      border-right: none;
+    }
+
+    ul.nav-menu > li > a:hover,
+    ul.nav-menu > li.active > a {
+      background-color: #8B0000;
+      color: #ffff00;
+    }
+
+    /* Submenu cấp 2 */
+    ul.nav-menu > li > ul.submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #4CAF50;
+      z-index: 200;
+      min-width: 200px;
+      border-top: 2px solid #ffff00;
+    }
+
+    ul.nav-menu > li > ul.submenu li a {
+      display: block;
+      color: #ffff00;
+      text-decoration: none;
+      padding: 8px 16px;
+      font-size: 13px;
+      border-bottom: 1px dashed #ffffff55;
+      list-style: none;
+    }
+
+    ul.nav-menu > li > ul.submenu li {
+      list-style: disc inside;
+      color: #ffff00;
+    }
+
+    ul.nav-menu > li > ul.submenu li a:hover {
+      background: #8B0000;
+    }
+
+    /* Click để toggle submenu */
+    ul.nav-menu > li > ul.submenu.open {
+      display: block;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .main-content {
+      display: flex;
+      min-height: 400px;
+    }
+
+    /* Sidebar */
+    aside {
+      width: 180px;
+      flex-shrink: 0;
+      padding: 15px;
+      border-right: 1px solid #ccc;
+      background: #f9f9f9;
+    }
+
+    aside h3 {
+      font-size: 15px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    aside ul {
+      list-style: disc inside;
+      padding-left: 5px;
+    }
+
+    aside ul li {
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    aside ul li a {
+      color: #0000cc;
+      text-decoration: none;
+    }
+
+    aside ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Article */
+    article {
+      flex: 1;
+      padding: 15px;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    article .book-cover {
+      flex-shrink: 0;
+      width: 130px;
+      height: 170px;
+      background: linear-gradient(135deg, #2d6a4f, #74c69d);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 13px;
+      font-weight: bold;
+      text-align: center;
+      padding: 8px;
+      box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    article .book-cover::before {
+      content: "📖";
+      font-size: 40px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    article .book-info h2 {
+      font-size: 16px;
+      color: #006600;
+      margin-bottom: 8px;
+    }
+
+    article .book-info p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #333;
+      text-align: justify;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #111;
+      color: #ccc;
+      text-align: center;
+      padding: 12px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">VDC</div>
+    <div class="banner-text">Truyện ngắn <span>hay trong tuần</span></div>
+  </header>
+
+  <!-- NAV: Menu ngang 2 cấp -->
+  <nav>
+    <ul class="nav-menu">
+      <li><a href="#">Trang chủ</a></li>
+      <li><a href="#">Truyện Blog</a></li>
+      <li>
+        <a href="#" onclick="toggleSubmenu(this); return false;">Truyện ngắn</a>
+        <ul class="submenu" id="submenu-truyen-ngan">
+          <li><a href="#">Truyện ngắn về tình yêu</a></li>
+          <li><a href="#">Truyện ngắn về gia đình</a></li>
+          <li><a href="#">Truyện ngắn về bạn bè</a></li>
+          <li><a href="#">Truyện ngắn về đời sống</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Sách hay</a></li>
+      <li><a href="#">Tâm sự</a></li>
+      <li><a href="#">Tiểu thuyết</a></li>
+      <li><a href="#">Tản văn</a></li>
+      <li><a href="#">Truyện cười</a></li>
+      <li><a href="#">Liên hệ</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <!-- Sidebar -->
+    <aside>
+      <h3>Tủ sách</h3>
+      <ul>
+        <li><a href="#">Truyện nổi bật</a></li>
+        <li><a href="#">Truyện mới</a></li>
+        <li><a href="#">Tiểu thuyết mới</a></li>
+        <li><a href="#">Truyện kiếm hiệp mới</a></li>
+        <li><a href="#">Truyện khoa học viễn tưởng</a></li>
+        <li><a href="#">Truyện trinh thám</a></li>
+        <li><a href="#">Góc cười</a></li>
+        <li><a href="#">Góc tâm sự</a></li>
+      </ul>
+    </aside>
+
+    <!-- Article -->
+    <article>
+      <div class="book-cover">
+        nguyễn nhật ánh<br>tôi thấy hoa vàng trên cỏ xanh
+      </div>
+      <div class="book-info">
+        <h2>nguyễn nhật ánh</h2>
+        <p>
+          Truyện kể về giai đoạn mà đời người ai cũng từng trải qua nhưng đôi khi trong cuộc sống
+          bận bịu với cơm áo gạo tiền và những nỗi lo không đặt hết tên, chúng ta đã ít nhiều quên
+          mất nó từng tồn tại, đó là: Tuổi thơ.
+        </p>
+        <p>
+          Tuổi thơ trong truyện Nguyễn Nhật Ánh không giống như bày giờ – khi người ta có nhiều
+          thứ để chơi và nhiều nơi để chọn như ra công viên nước lướt ván hoặc đắm mình trong các
+          game đại. Tuổi thơ trong truyện Nguyễn Nhật Ánh là khi bạn còn với thiên nhiên, khi bạn
+          thấy góc vườn nhà mình sao rộng thế, bạn "mặc nguyên quần áo dầm mưa ngoài trời" hay
+          "bứt lá keng chơi bày hàng hay lùng sục các bờ hào tìm hoa thú đế".
+        </p>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    Bản quyền CNTT_HAUI.com
+  </footer>
+
+  <script>
+    function toggleSubmenu(link) {
+      const li = link.parentElement;
+      const submenu = li.querySelector('.submenu');
+      if (submenu) {
+        submenu.classList.toggle('open');
+      }
+    }
+  </script>
+
+</body>
+</html>

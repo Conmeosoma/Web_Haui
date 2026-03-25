@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bài 3 - Menu Ngang Hai Cấp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* Reset */
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Menu cấp 1 */
+    ul.menu {
+      display: flex;
+      position: relative;
+    }
+
+    ul.menu > li {
+      position: relative;
+    }
+
+    ul.menu > li > a {
+      display: block;
+      background-color: #00008B;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      border-right: 1px solid #ffffff44;
+      white-space: nowrap;
+    }
+
+    ul.menu > li:last-child > a {
+      border-right: none;
+    }
+
+    ul.menu > li > a:hover {
+      background-color: red;
+    }
+
+    /* Menu cấp 2 - ẩn mặc định */
+    ul.menu > li > ul.submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 100;
+      min-width: 160px;
+    }
+
+    ul.menu > li > ul.submenu li a {
+      display: block;
+      background-color: red;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      border-top: 1px solid #ffffff44;
+      white-space: nowrap;
+    }
+
+    ul.menu > li > ul.submenu li a:hover {
+      background-color: darkred;
+    }
+
+    /* Hiện submenu khi hover vào li cấp 1 */
+    ul.menu > li:hover > ul.submenu {
+      display: block;
+    }
+
+    ul.menu > li:hover > a {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <ul class="menu">
+    <li>
+      <a href="#">Chính trị-xã hội</a>
+      <ul class="submenu">
+        <li><a href="#">Thư viện pháp luật</a></li>
+        <li><a href="#">Sống khỏe</a></li>
+        <li><a href="#">Pháp luật</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Thế giới</a></li>
+    <li><a href="#">Nhịp sống trẻ</a></li>
+    <li><a href="#">Giáo dục</a></li>
+    <li><a href="#">Kinh tế</a></li>
+  </ul>
+</body>
+</html>
