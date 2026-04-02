@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 2 - Cộng 2 số</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Nunito:wght@700;900&display=swap');
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        h1 {
+            color: #a8b2d8;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        
+        .calculator {
+            background: #16213e;
+            border: 1px solid #0f3460;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px #0f3460;
+            width: 320px;
+        }
+        /* Màn hình hiển thị */
+        
+        .display {
+            background: #0a0a1a;
+            border: 1px solid #0f3460;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            min-height: 80px;
+            text-align: right;
+        }
+        
+        .display .expr {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            color: #4a9eff;
+            min-height: 24px;
+            margin-bottom: 4px;
+        }
+        
+        .display .current {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 2rem;
+            color: #e2e8f0;
+            font-weight: 700;
+        }
+        
+        .display .answer {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.4rem;
+            color: #4ade80;
+            min-height: 28px;
+        }
+        /* Grid nút theo đề bài:
+       Row 1: 1 2 3 4 5 +
+       Row 2: 6 7 8 9 0 =  */
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+        }
+        
+        button {
+            background: #0f3460;
+            border: 1px solid #1a4a7a;
+            border-radius: 8px;
+            color: #e2e8f0;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.2rem;
+            padding: 14px 0;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+            user-select: none;
+        }
+        
+        button:hover {
+            background: #1a5c9a;
+            box-shadow: 0 0 10px rgba(74, 158, 255, 0.3);
+        }
+        
+        button:active {
+            transform: scale(0.93);
+            background: #0a2a50;
+        }
+        
+        button.op {
+            background: #1b4f72;
+            color: #4a9eff;
+            font-size: 1.4rem;
+        }
+        
+        button.op:hover {
+            background: #2471a3;
+        }
+        
+        button.equals {
+            background: #145a32;
+            color: #4ade80;
+            font-size: 1.4rem;
+        }
+        
+        button.equals:hover {
+            background: #1e8449;
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+        }
+        
+        .hint {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 0.78rem;
+            color: #4a5a7a;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Bài 2 — Phiếu số 2</h1>
+
+    <div class="calculator">
+        <div class="display">
+            <div class="expr" id="expr"></div>
+            <div class="current" id="current">0</div>
+            <div class="answer" id="answer"></div>
+        </div>
+
+        <div class="grid">
+            <!-- Row 1: 1 2 3 4 5 + -->
+            <button onclick="inputDigit(1)">1</button>
+            <button onclick="inputDigit(2)">2</button>
+            <button onclick="inputDigit(3)">3</button>
+            <button onclick="inputDigit(4)">4</button>
+            <button onclick="inputDigit(5)">5</button>
+            <button class="op" onclick="inputPlus()">+</button>
+            <!-- Row 2: 6 7 8 9 0 = -->
+            <button onclick="inputDigit(6)">6</button>
+            <button onclick="inputDigit(7)">7</button>
+            <button onclick="inputDigit(8)">8</button>
+            <button onclick="inputDigit(9)">9</button>
+            <button onclick="inputDigit(0)">0</button>
+            <button class="equals" onclick="calculate()">=</button>
+        </div>
+
+        <div class="hint">Nhập số 1 → nhấn + → nhập số 2 → nhấn =</div>
+    </div>
+
+    <script>
+        let num1 = null; // số thứ nhất
+        let num2 = null; // số thứ hai
+        let state = 'num1'; // 'num1' | 'waitNum2' | 'num2' | 'done'
+
+        const exprEl = document.getElementById('expr');
+        const currentEl = document.getElementById('current');
+        const answerEl = document.getElementById('answer');
+
+        function inputDigit(d) {
+            answerEl.textContent = '';
+
+            if (state === 'num1' || state === 'done') {
+                // Bắt đầu nhập số 1 mới
+                if (state === 'done') reset(false);
+                num1 = d;
+                state = 'num1';
+                currentEl.textContent = num1;
+                exprEl.textContent = '';
+            } else if (state === 'waitNum2' || state === 'num2') {
+                // Đang nhập số 2 (1 chữ số)
+                num2 = d;
+                state = 'num2';
+                currentEl.textContent = num2;
+                exprEl.textContent = `${num1} +`;
+            }
+        }
+
+        function inputPlus() {
+            if (num1 === null) return;
+            answerEl.textContent = '';
+            state = 'waitNum2';
+            num2 = null;
+            exprEl.textContent = `${num1} +`;
+            currentEl.textContent = '_';
+        }
+
+        function calculate() {
+            if (num1 === null || num2 === null) return;
+            const sum = num1 + num2;
+            exprEl.textContent = `${num1} + ${num2} =`;
+            currentEl.textContent = sum;
+            answerEl.textContent = `Kết quả: ${num1} + ${num2} = ${sum}`;
+            state = 'done';
+        }
+
+        function reset(full = true) {
+            num1 = null;
+            num2 = null;
+            state = 'num1';
+            if (full) {
+                exprEl.textContent = '';
+                currentEl.textContent = '0';
+                answerEl.textContent = '';
+            }
+        }
+    </script>
+</body>
+
+</html>
