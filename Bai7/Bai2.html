@@ -3,68 +3,46 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bai 2 - Doi mau nen</title>
+    <title>Bài 2 - Đổi màu nền</title>
     <style>
         body {
-            font-family: Tahoma, sans-serif;
-            min-height: 100vh;
-            margin: 0;
-            display: grid;
-            place-items: center;
-            transition: background-color 0.35s ease;
-        }
-        
-        .khung {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid #d0d0d0;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
+            font-family: Arial, sans-serif;
+            padding: 30px;
         }
         
         button {
-            padding: 8px 14px;
+            padding: 8px 18px;
+            font-size: 14px;
             cursor: pointer;
+            background: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        
+        button:hover {
+            background: #005fa3;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            font-size: 14px;
         }
     </style>
-    <script>
-        function mauHopLe(mau) {
-            const mauThu = new Option().style;
-            mauThu.color = mau;
-            return mauThu.color !== "";
-        }
-
-        function thayDoiMauNen() {
-            const mauNen = prompt("Nhap mau nen (vi du: red, #f4a261, rgb(200, 220, 255)):", "");
-
-            if (mauNen === null) {
-                return;
-            }
-
-            const mauDaNhap = mauNen.trim();
-            if (mauDaNhap === "") {
-                alert("Ban chua nhap mau.");
-                return;
-            }
-
-            if (!mauHopLe(mauDaNhap)) {
-                alert("Gia tri mau khong hop le. Vui long thu lai.");
-                return;
-            }
-
-            document.body.style.backgroundColor = mauDaNhap;
-            document.getElementById("thongBao").textContent = "Da doi mau nen thanh: " + mauDaNhap;
-        }
-    </script>
 </head>
 
-<body onload="thayDoiMauNen()">
-    <div class="khung">
-        <h2>Bai 2: Doi mau nen trang</h2>
-        <p id="thongBao">Nhap mau bang hop thoai khi trang vua tai.</p>
-        <button type="button" onclick="thayDoiMauNen()">Doi mau lai</button>
-    </div>
+<body>
+    <p>Chào mừng đến Website</p>
+    <button onclick="doiMauNen()">Đổi màu nền</button>
+
+    <script>
+        function doiMauNen() {
+            var mau = prompt("Nhập màu nền của trang:");
+            if (mau !== null && mau.trim() !== "") {
+                document.body.style.backgroundColor = mau.trim();
+            }
+        }
+    </script>
 </body>
 
 </html>

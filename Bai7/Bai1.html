@@ -3,49 +3,33 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài 1 - Su kien Focus va Change</title>
+    <title>Bài 1 - onfocus & onchange</title>
     <style>
         body {
-            font-family: Tahoma, sans-serif;
-            max-width: 640px;
-            margin: 40px auto;
-            padding: 0 16px;
-            line-height: 1.5;
+            font-family: Arial, sans-serif;
+            padding: 30px;
         }
         
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            box-sizing: border-box;
+        input[type="text"] {
+            padding: 6px 10px;
+            font-size: 14px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            width: 200px;
         }
         
-        #trangThai {
-            margin-top: 14px;
-            color: #0f4c81;
-            font-weight: 600;
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
         }
     </style>
 </head>
 
 <body>
-    <h2>Bai 1: Su kien focus va change</h2>
-    <p>Click vao o nhap de kich hoat <strong>focus</strong>, sau do doi noi dung va bo focus de kich hoat <strong>change</strong>.</p>
-
-    <input id="duLieu" type="text" onfocus="xuLyFocus()" onchange="xuLyChange()" placeholder="Nhap noi dung vao day...">
-    <div id="trangThai">Trang thai: Chua co su kien.</div>
-
-    <script>
-        function xuLyFocus() {
-            document.getElementById("trangThai").textContent = "Trang thai: Ban dang focus vao o nhap.";
-        }
-
-        function xuLyChange() {
-            const giaTri = document.getElementById("duLieu").value;
-            document.getElementById("trangThai").textContent = "Trang thai: Da thay doi gia tri thanh \"" + giaTri + "\".";
-        }
-    </script>
+    <h3>Bài tập 1</h3>
+    <label>Họ tên:</label>
+    <input type="text" id="hoten" onfocus="alert('focus')" onchange="alert('change')" placeholder="Nhập họ tên..." />
 </body>
 
 </html>
