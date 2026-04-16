@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 1 - Su kien Focus va Change</title>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            max-width: 640px;
+            margin: 40px auto;
+            padding: 0 16px;
+            line-height: 1.5;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        
+        #trangThai {
+            margin-top: 14px;
+            color: #0f4c81;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Bai 1: Su kien focus va change</h2>
+    <p>Click vao o nhap de kich hoat <strong>focus</strong>, sau do doi noi dung va bo focus de kich hoat <strong>change</strong>.</p>
+
+    <input id="duLieu" type="text" onfocus="xuLyFocus()" onchange="xuLyChange()" placeholder="Nhap noi dung vao day...">
+    <div id="trangThai">Trang thai: Chua co su kien.</div>
+
+    <script>
+        function xuLyFocus() {
+            document.getElementById("trangThai").textContent = "Trang thai: Ban dang focus vao o nhap.";
+        }
+
+        function xuLyChange() {
+            const giaTri = document.getElementById("duLieu").value;
+            document.getElementById("trangThai").textContent = "Trang thai: Da thay doi gia tri thanh \"" + giaTri + "\".";
+        }
+    </script>
+</body>
+
+</html>

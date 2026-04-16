@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bai 3 - Bat tat den</title>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        img {
+            width: 160px;
+            margin: 14px 0;
+            cursor: pointer;
+        }
+        
+        button {
+            padding: 8px 14px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        let denDangBat = false;
+
+        function batTatDen() {
+            const anhBongDen = document.getElementById("bongDen");
+            const trangThai = document.getElementById("trangThai");
+
+            denDangBat = !denDangBat;
+            anhBongDen.src = denDangBat ?
+                "https://www.w3schools.com/js/pic_bulbon.gif" :
+                "https://www.w3schools.com/js/pic_bulboff.gif";
+
+            trangThai.textContent = denDangBat ? "Trang thai: Den dang BAT" : "Trang thai: Den dang TAT";
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Bai 3: Bat tat bong den</h2>
+    <p>Nhan vao bong den hoac nut ben duoi de chuyen trang thai.</p>
+    <img id="bongDen" onclick="batTatDen()" src="https://www.w3schools.com/js/pic_bulboff.gif" alt="Bong den">
+    <div id="trangThai">Trang thai: Den dang TAT</div>
+    <p><button type="button" onclick="batTatDen()">Bat/Tat den</button></p>
+</body>
+
+</html>

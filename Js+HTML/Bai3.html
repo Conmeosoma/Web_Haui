@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 1 - Ngày tháng năm sinh</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&family=Fira+Mono&display=swap');
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: #1e293b;
+        }
+        
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 48px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 520px;
+            width: 90%;
+        }
+        
+        h1 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+        
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #334155;
+            white-space: nowrap;
+        }
+        
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            background: #f8fafc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M6 8L0 0h12z'/%3E%3C/svg%3E") no-repeat right 10px center;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 6px 28px 6px 10px;
+            font-family: 'Fira Mono', monospace;
+            font-size: 0.9rem;
+            color: #1e293b;
+            cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+        
+        #selNam {
+            width: 90px;
+        }
+        
+        #selNgay,
+        #selThang {
+            width: 70px;
+        }
+        
+        .result {
+            margin-top: 28px;
+            background: #eff6ff;
+            border: 1.5px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            color: #1d4ed8;
+            font-weight: 600;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Bài 1 — Phiếu số 1</h1>
+
+        <div class="row">
+            <label>Ngày tháng năm sinh:</label>
+
+            <select id="selNgay"></select>
+            <label>tháng</label>
+            <select id="selThang"></select>
+            <label>năm</label>
+            <select id="selNam"></select>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // --- Điền ngày 1-31 ---
+        var selNgay = document.getElementById('selNgay');
+        for (var d = 1; d <= 31; d++) {
+            var opt = document.createElement('option');
+            opt.value = d;
+            opt.text = d;
+            selNgay.appendChild(opt);
+        }
+
+        // --- Điền tháng 1-12 ---
+        var selThang = document.getElementById('selThang');
+        for (var m = 1; m <= 12; m++) {
+            var opt2 = document.createElement('option');
+            opt2.value = m;
+            opt2.text = m;
+            selThang.appendChild(opt2);
+        }
+
+        // --- Điền năm 1900 đến năm hiện tại ---
+        var selNam = document.getElementById('selNam');
+        var namHienTai = new Date().getFullYear();
+        for (var y = 1900; y <= namHienTai; y++) {
+            var opt3 = document.createElement('option');
+            opt3.value = y;
+            opt3.text = y;
+            selNam.appendChild(opt3);
+        }
+
+        // --- Hiển thị kết quả khi thay đổi ---
+        function hienThiNgay() {
+            var ngay = selNgay.value;
+            var thang = selThang.value;
+            var nam = selNam.value;
+            var res = document.getElementById('result');
+            res.style.display = 'block';
+            res.textContent = 'Ngày sinh: ' + ngay + '/' + thang + '/' + nam;
+        }
+
+        selNgay.addEventListener('change', hienThiNgay);
+        selThang.addEventListener('change', hienThiNgay);
+        selNam.addEventListener('change', hienThiNgay);
+    </script>
+</body>
+
+</html>

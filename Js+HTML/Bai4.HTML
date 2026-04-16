@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bài 2 - Lời chào</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;900&display=swap');
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f2744 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: #e2e8f0;
+            text-align: center;
+            padding: 24px;
+        }
+        
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            animation: wave 1.2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes wave {
+            from {
+                transform: rotate(-10deg);
+            }
+            to {
+                transform: rotate(10deg);
+            }
+        }
+        
+        h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #f0f9ff;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            font-size: 1rem;
+            color: #94a3b8;
+            max-width: 360px;
+            line-height: 1.7;
+        }
+        
+        .badge {
+            margin-top: 28px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-size: 0.8rem;
+            color: #7dd3fc;
+            letter-spacing: 0.05em;
+        }
+        
+        .btn {
+            margin-top: 24px;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 28px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        
+        .btn:hover {
+            background: #2563eb;
+        }
+        
+        .btn:active {
+            transform: scale(0.96);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="icon">👋</div>
+    <h1>Chào mừng!</h1>
+    <p>Trang web đã hiển thị hộp cảnh báo lời chào khi bạn truy cập.</p>
+    <div class="badge">Bài 2 — Phiếu số 1</div>
+    <button class="btn" onclick="chaoLai()">Hiện lời chào lại</button>
+
+    <script>
+        // Hàm hiển thị lời chào qua alert
+        function hienLoiChao() {
+            var gio = new Date().getHours();
+            var loiChao;
+
+            if (gio >= 5 && gio < 12) {
+                loiChao = 'Chào buổi sáng! 🌅';
+            } else if (gio >= 12 && gio < 18) {
+                loiChao = 'Chào buổi chiều! ☀️';
+            } else {
+                loiChao = 'Chào buổi tối! 🌙';
+            }
+
+            alert(loiChao + '\nChào mừng bạn đã truy cập vào trang web của chúng tôi!');
+        }
+
+        // Gọi khi trang tải xong
+        window.onload = function() {
+            hienLoiChao();
+        };
+
+        function chaoLai() {
+            hienLoiChao();
+        }
+    </script>
+
+</body>
+
+</html>
